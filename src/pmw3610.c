@@ -626,10 +626,6 @@ static int pmw3610_report_data(const struct device *dev) {
     if (err) {
         return err;
     }
-    
-    // ポーリング間隔を適用
-    k_msleep(data->polling_interval_ms);
-
 
     int16_t raw_x =
         TOINT16((buf[PMW3610_X_L_POS] + ((buf[PMW3610_XY_H_POS] & 0xF0) << 4)), 12) / dividor;
@@ -802,11 +798,6 @@ static int pmw3610_init(const struct device *dev) {
     struct pixart_data *data = dev->data;
     const struct pixart_config *config = dev->config;
     int err;
-
-    // デバイスツリーからポーリング間隔を取得
-    data->polling_interval_ms = DT_PROP_OR(DT_DRV_INST(0), polling_interval_ms, 10);
-
-    LOG_INF("Polling interval set to %d ms", data->polling_interval_ms);
 
 
     // init device pointer
