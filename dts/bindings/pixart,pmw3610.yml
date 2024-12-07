@@ -9,6 +9,9 @@ properties:
   irq-gpios:
     type: phandle-array
     required: false
+    description: GPIO pin used for interrupt signaling.
+
+
   scroll-layers:
     type: array
     default: []
