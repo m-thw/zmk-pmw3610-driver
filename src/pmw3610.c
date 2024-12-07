@@ -626,6 +626,10 @@ static int pmw3610_report_data(const struct device *dev) {
     if (err) {
         return err;
     }
+    
+    // ポーリング間隔を適用
+    k_msleep(data->polling_interval_ms);
+
 
     int16_t raw_x =
         TOINT16((buf[PMW3610_X_L_POS] + ((buf[PMW3610_XY_H_POS] & 0xF0) << 4)), 12) / dividor;
