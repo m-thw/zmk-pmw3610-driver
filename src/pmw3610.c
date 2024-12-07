@@ -17,6 +17,8 @@
 #include "pmw3610.h"
 
 #include <zephyr/logging/log.h>
+
+
 LOG_MODULE_REGISTER(pmw3610, CONFIG_INPUT_LOG_LEVEL);
 
 //////// Sensor initialization steps definition //////////
@@ -796,6 +798,12 @@ static int pmw3610_init(const struct device *dev) {
     struct pixart_data *data = dev->data;
     const struct pixart_config *config = dev->config;
     int err;
+
+    // デバイスツリーからポーリング間隔を取得
+    data->polling_interval_ms = DT_PROP_OR(DT_DRV_INST(0), polling_interval_ms, 10);
+
+    LOG_INF("Polling interval set to %d ms", data->polling_interval_ms);
+
 
     // init device pointer
     data->dev = dev;

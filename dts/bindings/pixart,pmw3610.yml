@@ -8,10 +8,7 @@ include: spi-device.yaml
 properties:
   irq-gpios:
     type: phandle-array
-    required: false  # 必須からオプションに変更
-    description: GPIO pin used for interrupt signaling.
-
-
+    required: true
   scroll-layers:
     type: array
     default: []
